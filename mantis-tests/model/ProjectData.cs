@@ -13,13 +13,17 @@ namespace mantis_tests
 {
     public class ProjectData : IEquatable<ProjectData>, IComparable<ProjectData>
     {
-        private string projectName;
-        //private string status;
-        //private bool inheritGlobalCategories;
-        //private string viewStatus;
-        private string description;
         private string id;
-
+        private string name;
+        private string status;     
+        private bool enabled;
+        private string viewState;
+        private string access_min;
+        private string filePath;
+        private string description;
+        private string subprojects;
+        private bool inheritGlobal ;    
+       
         public ProjectData()
         {
         }
@@ -29,7 +33,7 @@ namespace mantis_tests
             this.Description = description;
         }
 
-        public string ProjectName { get => projectName; set => projectName = value; }
+        public string ProjectName { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
         public string Id { get => id; set => id = value; }
 

@@ -25,10 +25,7 @@ namespace mantis_tests
 
         private List<ProjectData> projectData = null;
 
-        //Zadanie 22. изменить вспомогательную функцию для получения списка проектов таким образом,
-        //чтобы она работала через веб-сервис MantisConnect (операция mc_projects_get_user_accessible)
-
-        public List<ProjectData> GetProjectList()
+        public List<ProjectData> GetProjectListUI()
         {
             projectData = new List<ProjectData>();
 
