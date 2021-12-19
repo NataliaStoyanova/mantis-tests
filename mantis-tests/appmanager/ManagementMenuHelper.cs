@@ -20,6 +20,5 @@ namespace mantis_tests
             driver.FindElement(By.XPath("//span[contains(text(),'Manage')]")).Click();
             driver.FindElement(By.XPath("//a[contains(text(),'Manage Projects')]")).Click();
         }
-
     }
 }

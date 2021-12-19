@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using SimpleBrowser.WebDriver;
 //TestBase is responsible for initialisation and for stopping the browser 
 
 namespace mantis_tests

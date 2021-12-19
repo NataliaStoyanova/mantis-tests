@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using SimpleBrowser.WebDriver;
 
 
 namespace mantis_tests
@@ -21,24 +22,24 @@ namespace mantis_tests
         public AuthHelper Auth { get; set; }
         public ProjectManagementHelper PMHelper { get; set; }
         public ManagementMenuHelper Menu { get; set; }
+        public ApiHelper API { get; set; }
         public FtpHelper Ftp { get; set; }
+        public IWebDriver Driver { get => driver; }
 
         //ThreadLocal<ApplicationManager> is a special objects that defines the mapping between the current thread and the instance of ApplicationManager 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
-        public IWebDriver Driver { get => driver; }
-
         //no one outside ApplicatinManager class must not create other instances 
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
-            baseURL = "http://localhost";
+            baseURL = "http://localhost/mantisbt-2.25.2/";
             Registration = new RegistrationHelper(this);
-            Ftp = new FtpHelper(this);
-            Auth = new AuthHelper(this);
+            //Ftp = new FtpHelper(this);
+            Auth = new AuthHelper(this, baseURL);
             PMHelper = new ProjectManagementHelper(this);
             Menu = new ManagementMenuHelper(this);
-
+            API = new ApiHelper(this);
         }
 
         [TearDown]
@@ -62,7 +63,7 @@ namespace mantis_tests
             if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.25.2/login_page.php";
+                newInstance.driver.Url = newInstance.baseURL + "login_page.php";
                 app.Value = newInstance;
             }
             return app.Value;

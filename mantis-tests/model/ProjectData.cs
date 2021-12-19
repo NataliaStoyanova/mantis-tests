@@ -14,11 +14,15 @@ namespace mantis_tests
     public class ProjectData : IEquatable<ProjectData>, IComparable<ProjectData>
     {
         private string projectName;
-        private string status;
-        private bool inheritGlobalCategories;
-        private string viewStatus;
+        //private string status;
+        //private bool inheritGlobalCategories;
+        //private string viewStatus;
         private string description;
+        private string id;
 
+        public ProjectData()
+        {
+        }
         public ProjectData(string projectName, string description)
         {
             this.ProjectName = projectName;
@@ -27,6 +31,7 @@ namespace mantis_tests
 
         public string ProjectName { get => projectName; set => projectName = value; }
         public string Description { get => description; set => description = value; }
+        public string Id { get => id; set => id = value; }
 
         //returns "1" - if this object is grt with our compare rule then the second object
         //returns "0" - if objects are equal

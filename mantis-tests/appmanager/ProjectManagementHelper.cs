@@ -19,16 +19,22 @@ namespace mantis_tests
         public bool DoesTheProjectExist(int i)
         {
             manager.Menu.OpenManageProjectsTab();
-            return IsElementPresent(By.XPath("//body[1]/div[2]/div[2]/div[2]/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/table[1]/tbody[1]/tr["+(i)+"]"));
+            return IsElementPresent(By.XPath("//body[1]/div[2]/div[2]/div[2]/div[1]/div[1]/" +
+                "div[2]/div[2]/div[1]/div[2]/table[1]/tbody[1]/tr["+(i)+"]"));
         }
 
         private List<ProjectData> projectData = null;
+
+        //Zadanie 22. изменить вспомогательную функцию для получения списка проектов таким образом,
+        //чтобы она работала через веб-сервис MantisConnect (операция mc_projects_get_user_accessible)
+
         public List<ProjectData> GetProjectList()
         {
             projectData = new List<ProjectData>();
 
             manager.Menu.OpenManageProjectsTab();
-            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//div[@class='widget-box widget-color-blue2']//table/tbody/tr"));
+            ICollection<IWebElement> elements = driver
+                .FindElements(By.XPath("//div[@class='widget-box widget-color-blue2']//table/tbody/tr"));
             foreach (IWebElement element in elements)
             {
                 var tds = element.FindElements(By.TagName("td"));
@@ -45,8 +51,6 @@ namespace mantis_tests
             CreateNewProjectBtn();
             FillProjectForm(project);
             SubmitProject();
-            //new WebDriverWait(driver, TimeSpan.FromSeconds(10))
-             //   .Until(d => d.FindElements(By.XPath("//table[@class='table']//tbody[1]")).Count > 0);
         }
 
         public void Remove(int i)

@@ -5,16 +5,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Chrome;
+using SimpleBrowser.WebDriver;
+
 
 namespace mantis_tests
 {
     public class AuthHelper : HelperBase
     {
-        public AuthHelper(ApplicationManager manager) : base(manager)
+        private string baseUrl;
+        public AuthHelper(ApplicationManager manager, String baseUrl) : base(manager)
         {
+            this.baseUrl = baseUrl;
+        }
+
+        public IWebDriver OpenAppAndLogin(AccountData account)
+        {
+            //IWebDriver driver = new SimpleBrowserDriver();
+            //driver.Url = baseUrl + "login_page.php";
+            Type(By.Id("username"), account.Username);
+
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+            
+            Type(By.Id("password"), account.Password);
+            driver.FindElement(By.CssSelector("input[value='Login']")).Click();
+            return driver;
         }
 
         public void Login(AccountData account)
@@ -46,8 +60,7 @@ namespace mantis_tests
         {
             return isLoggedIn() && GetLoggedUserName() == account.Username;
         }
-
-        //string.Format("(${0})", account.Username ~~ ${0}=account.Username
+    
         public string GetLoggedUserName()
         {         
             string text =  driver.FindElement(By.XPath("//span[@class='user-info']")).Text;
